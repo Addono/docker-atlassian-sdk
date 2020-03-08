@@ -16,6 +16,8 @@ RUN yum clean all
 RUN yum updateinfo metadata
 RUN yum install atlassian-plugin-sdk -y
 
+RUN atlas-update
+
 #RUN apt-get update && apt-get upgrade -y \
 #    && apt-get install -y --no-install-recommends gnupg2
 #RUN sudo apt-key add ./public

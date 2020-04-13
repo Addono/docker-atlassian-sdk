@@ -14,9 +14,9 @@ gpgcheck=0' > /etc/yum.repos.d/artifactory.repo
 ADD "https://packages.atlassian.com/api/gpg/key/public" .
 
 # Install the Atlassian Plugin SDK
-RUN yum clean all
-RUN yum updateinfo metadata
-RUN yum install atlassian-plugin-sdk -y
+RUN yum clean all\
+  && yum updateinfo metadata\
+  && yum install atlassian-plugin-sdk -y
 
 # Update the Atlassian CLI
 RUN atlas-update

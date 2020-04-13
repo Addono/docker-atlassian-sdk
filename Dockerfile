@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:centos8
 
 # Install Java 1.8
 RUN yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel which -y

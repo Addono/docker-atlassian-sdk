@@ -18,6 +18,3 @@ RUN yum clean all\
   && yum updateinfo metadata\
   && yum install atlassian-plugin-sdk -y
 
-# Update the Atlassian CLI
-RUN atlas-update
-

@@ -8,7 +8,7 @@ repository:
   description: Docker images for the atlassian-sdk.
 
   # A URL with more information about the repository
-  # homepage: https://example.github.io/
+  homepage: https://hub.docker.com/r/addono/atlassian-sdk
 
   # Either `true` to make the repository private, or `false` to make it public.
   private: false

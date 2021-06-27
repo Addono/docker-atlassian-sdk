@@ -1,6 +1,9 @@
 name: Docker
 
 on:
+  schedule:
+    - cron: 0 0 * * 1  # Build latest image every Monday
+
   push:
     # Publish `master` as Docker `latest` image.
     branches:
@@ -31,7 +34,7 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name != 'pull_request' 
 
     steps:
       - uses: actions/checkout@v2

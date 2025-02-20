@@ -1,20 +1,16 @@
-FROM centos:centos8
+FROM redhat/ubi8
+
+# Set default SDK version
+ARG ATLASSIAN_SDK_VERSION=9.1.1
 
 # Install Java 1.8
 RUN yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel which -y
 
-# Add Atlassian's Yum repository
-RUN echo $'[Artifactory]\n\
-name=Artifactory\n\
-baseurl=https://packages.atlassian.com/yum/atlassian-sdk-rpm/\n\
-enabled=1\n\
-gpgcheck=0' > /etc/yum.repos.d/artifactory.repo 
+# Download and install Atlassian Plugin SDK
+RUN curl -L https://maven.artifacts.atlassian.com/com/atlassian/amps/atlassian-plugin-sdk/${ATLASSIAN_SDK_VERSION}/atlassian-plugin-sdk-${ATLASSIAN_SDK_VERSION}.tar.gz -o /tmp/atlassian-plugin-sdk.tar.gz \
+  && tar -xzf /tmp/atlassian-plugin-sdk.tar.gz -C /opt \
+  && mv /opt/atlassian-plugin-sdk-* /opt/atlassian-plugin-sdk \
+  && rm /tmp/atlassian-plugin-sdk.tar.gz
 
-# Get Atlassian's public key
-ADD "https://packages.atlassian.com/api/gpg/key/public" .
-
-# Install the Atlassian Plugin SDK
-RUN yum clean all\
-  && yum updateinfo metadata\
-  && yum install atlassian-plugin-sdk -y
-
+# Add SDK to PATH
+ENV PATH="/opt/atlassian-plugin-sdk/bin:${PATH}"
